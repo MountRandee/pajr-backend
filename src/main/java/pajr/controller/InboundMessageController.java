@@ -3,7 +3,7 @@ package pajr.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Enumeration;
-import java.util.stream.Collectors;
+//import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,10 +24,10 @@ public class InboundMessageController {
         debugTwilioResponse(request);
 
         BufferedReader bufferedReader = request.getReader();
-        String message = bufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
+//        String message = bufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
         
         Message messageToSend = new Message.Builder()
-                .body(new Body("The message you sent was " + message))
+                .body(new Body("The message you sent was " ))
                 .build();
         MessagingResponse twiml = new MessagingResponse.Builder()
                 .message(messageToSend)
