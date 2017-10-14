@@ -21,11 +21,8 @@ public class InboundMessageController {
     
     @RequestMapping(value="/receive-sms", method=RequestMethod.POST)
     public String receiveSMS(HttpServletRequest request) throws TwiMLException, IOException {
-        Enumeration<String> params = request.getParameterNames(); 
-        while(params.hasMoreElements()){
-         String paramName = params.nextElement();
-         System.out.println("Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
-        }
+        debugTwilioResponse(request);
+
         BufferedReader bufferedReader = request.getReader();
         String message = bufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
         
@@ -37,6 +34,14 @@ public class InboundMessageController {
                 .build();
         
         return twiml.toXml();
+    }
+    
+    private void debugTwilioResponse(HttpServletRequest request) {
+        Enumeration<String> params = request.getParameterNames();
+        while (params.hasMoreElements()) {
+            String paramName = params.nextElement();
+            System.out.println("Parameter Name - " + paramName + ", Value - " + request.getParameter(paramName));
+       }
     }
 
 }
