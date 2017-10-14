@@ -8,50 +8,50 @@ import javax.persistence.Id;
 @Entity
 public class Disaster {
 
-	@Id
+    @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
-	private String name;
+    private Integer id;
+    private String name;
     private Integer priority;
     private String advice;
     
     protected Disaster() {}
     
     public Disaster(String name, Integer priority, String advice) {
-    		this.name = name;
-    		this.priority = priority;
-    		this.advice = advice;
+        this.name = name;
+        this.priority = priority;
+        this.advice = advice;
     }
     
     public Integer getId() {
-		return id;
-	}
+        return id;
+    }
     
     public String getName() {
-		return name;
-	}
+        return name;
+    }
     
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
     
-	public Integer getPriority() {
-		return priority;
-	}
-	
-	public void setPriority(Integer priority) {
-		this.priority = priority;
-	}
-		
-	public String getAdvice() {
-		return advice;
-	}
-	
-	public void setAdvice(String advice) {
-		this.advice = advice;
-	}	
-	
-	@Override
+    public Integer getPriority() {
+        return priority;
+    }
+    
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+        
+    public String getAdvice() {
+        return advice;
+    }
+    
+    public void setAdvice(String advice) {
+        this.advice = advice;
+    }    
+    
+    @Override
     public String toString() {
         return String.format(
                 "Disaster[id=%d, name='%s', priority='%s', advice='%s']",
