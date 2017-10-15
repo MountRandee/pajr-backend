@@ -1,7 +1,9 @@
 package pajr.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.Enumeration;
 
@@ -9,8 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,13 +45,14 @@ public class InboundMessageController {
     
     @RequestMapping(value="/receive-sms", method=RequestMethod.POST)
     public String receiveSMS(HttpServletRequest request) throws TwiMLException, IOException, URISyntaxException {
-        debugTwilioResponse(request);
-        UserRequest userRequest = createUserRequestFromSMS(request);
+        // debugTwilioResponse(request);
+        // UserRequest userRequest = createUserRequestFromSMS(request);
+        String entity = getEntityFromWit("fire");
         // String entity = getEntityFromWit(userRequest.getMessage());
-        String entity = "fire";
+        // String entity = "fire";
         Disaster disaster = disasterRepo.findByName(entity);
-        userRequest.setDisaster(disaster);
-        userRequestRepo.save(userRequest);
+        // userRequest.setDisaster(disaster);
+        // userRequestRepo.save(userRequest);
         return createFeedback(disaster.getAdvice());
     }
     
@@ -58,12 +66,22 @@ public class InboundMessageController {
         return userRequest;
     }
     
-    private String getEntityFromWit(String message) throws URISyntaxException {
+    private String getEntityFromWit(String message) throws URISyntaxException, UnsupportedEncodingException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+        map.add("Bearer", "4FZHYB3TVGASNBOR3EXC72FSRFIJ3AU4");
+        HttpEntity<MultiValueMap<String, String>> params = new HttpEntity<MultiValueMap<String, String>>(map, headers);
+        
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        String witApiUrl = "";
+
+        String witApiUrl = "https://api.wit.ai/message?v=20171014&q=".concat(message);
+        witApiUrl = URLEncoder.encode(witApiUrl, "UTF-8");
         URIBuilder uriBuilder = new URIBuilder(witApiUrl);
-        ResponseEntity<String> response = restTemplate.getForEntity(uriBuilder.build().toString(), String.class);
+        
+        ResponseEntity<String> response = restTemplate.postForEntity(uriBuilder.build().toString(), params, String.class);
+        
         return response.getBody().toString();
     }
     
