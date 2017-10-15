@@ -18,7 +18,7 @@ import pajr.repo.DisasterRepo;
 public class DisasterController {
     
     @Autowired
-    DisasterRepo disasterRepository;
+    private DisasterRepo disasterRepository;
     
     @RequestMapping(value="", method=RequestMethod.GET)
     public @ResponseBody Iterable<Disaster> getDisaster() {

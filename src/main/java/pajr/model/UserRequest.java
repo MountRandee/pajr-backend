@@ -2,13 +2,14 @@ package pajr.model;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,19 +24,19 @@ public class UserRequest {
     private String city;
     private Timestamp timestamp;
     
-    @Column(name="disasterId")
-    private Integer disasterId;
+    @ManyToOne
+    @JoinColumn(name="disasterId")
+    private Disaster disaster;
     
     @Enumerated(EnumType.STRING)
     private Status status;
     
     public UserRequest() {}
     
-    public UserRequest(String message, String city, Timestamp timestamp, Integer disasterId, Status status) {
+    public UserRequest(String message, String city, Timestamp timestamp, Status status) {
         this.message = message;
         this.city = city;
         this.timestamp = timestamp;
-        this.disasterId = disasterId;
         this.status = status;
     }
     
@@ -63,17 +64,16 @@ public class UserRequest {
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
-    public Integer getDisasterId() {
-        return disasterId;
+    public Disaster getDisaster() {
+    		return disaster;
     }
-    public void setDisasterId(Integer disasterId) {
-        this.disasterId = disasterId;
+    public void setDisaster(Disaster disaster) {
+    		this.disaster = disaster;
     }
     public Status getStatus() {
         return status;
     }
     public void setStatus(Status status) {
         this.status = status;
-        
     }
 }
