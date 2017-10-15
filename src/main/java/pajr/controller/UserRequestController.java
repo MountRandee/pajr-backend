@@ -3,6 +3,7 @@ package pajr.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,31 +16,35 @@ import pajr.model.UserRequest;
 import pajr.repo.UserRequestRepo;
 
 @RestController
+@CrossOrigin
 @RequestMapping(value="/userRequest")
 public class UserRequestController {
     
     @Autowired
     private UserRequestRepo userRequestRepo;
     
+    @CrossOrigin
     @RequestMapping(value="", method=RequestMethod.GET)
     public @ResponseBody List<UserRequest> getUserRequests(@RequestParam Status status) {
-    		return userRequestRepo.findByStatus(status);
+        return userRequestRepo.findByStatus(status);
     }
     
+    @CrossOrigin
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
     public UserRequest getUserRequest(@PathVariable Integer id) {
         UserRequest userRequest = userRequestRepo.findOne(id);
         return userRequest;
     }
     
+    @CrossOrigin
     @RequestMapping(value="/{id}", method=RequestMethod.PUT)
     public @ResponseBody UserRequest putUserRequest(
-    			@PathVariable Integer id,
-    		    @RequestParam Status status
-    		) {
+            @PathVariable Integer id,
+            @RequestParam Status status) {
         UserRequest userRequest = userRequestRepo.findOne(id);
         userRequest.setStatus(status);
         userRequestRepo.save(userRequest);
         return userRequest;
-    }    
+    }
+    
 }

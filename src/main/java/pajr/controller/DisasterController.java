@@ -22,23 +22,22 @@ public class DisasterController {
     
     @RequestMapping(value="", method=RequestMethod.GET)
     public @ResponseBody Iterable<Disaster> getDisaster() {
-            return disasterRepository.findAll();
+        return disasterRepository.findAll();
     }
     
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
     public @ResponseBody Disaster getDisaster(@PathVariable("id") Integer id) {
-            return disasterRepository.findOne(id);
+        return disasterRepository.findOne(id);
     }
     
     @RequestMapping(value="", method=RequestMethod.POST)
     public @ResponseBody Disaster addDisaster(
             @RequestParam String name, 
-            @RequestParam Integer priority, 
-            @RequestParam String advice
-        ) {    
-            Disaster disaster = new Disaster(name, priority, advice);
-            disasterRepository.save(disaster);
-            return disaster;
+            @RequestParam Integer priority,
+            @RequestParam String advice) {
+        Disaster disaster = new Disaster(name, priority, advice);
+        disasterRepository.save(disaster);
+        return disaster;
     }
     
     @RequestMapping(value="/{id}", method=RequestMethod.PUT)
@@ -46,19 +45,18 @@ public class DisasterController {
             @PathVariable("id") Integer id,
             @RequestParam String name, 
             @RequestParam Integer priority, 
-            @RequestParam String advice
-        ) {    
-            Disaster disaster = disasterRepository.findOne(id);
-            disaster.setName(name);
-            disaster.setPriority(priority);
-            disaster.setAdvice(advice);
-            disasterRepository.save(disaster);
-            return disaster;
+            @RequestParam String advice) {
+        Disaster disaster = disasterRepository.findOne(id);
+        disaster.setName(name);
+        disaster.setPriority(priority);
+        disaster.setAdvice(advice);
+        disasterRepository.save(disaster);
+        return disaster;
     }
     
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteDisaster(@PathVariable("id") Integer id) {    
-            disasterRepository.delete(id);
+    public void deleteDisaster(@PathVariable("id") Integer id) {
+        disasterRepository.delete(id);
     }
 }

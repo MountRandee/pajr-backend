@@ -1,4 +1,5 @@
 <configuration>
+
     <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
@@ -21,4 +22,5 @@
         <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
     </root>
+    
 </configuration>
