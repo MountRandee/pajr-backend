@@ -9,5 +9,5 @@ import pajr.model.UserRequest;
 
 public interface UserRequestRepo  extends CrudRepository<UserRequest, Integer> {
     
-	List<UserRequest> findByStatus(Status status);
+    List<UserRequest> findByStatus(Status status);
 }

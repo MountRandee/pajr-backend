@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "disaster")
 public class Disaster {
-
+    
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
@@ -59,4 +59,5 @@ public class Disaster {
                 "Disaster[id=%d, name='%s', priority='%s', advice='%s']",
                 id, name, priority, advice);
     }
+    
 }

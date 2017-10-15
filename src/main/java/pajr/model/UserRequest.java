@@ -33,47 +33,60 @@ public class UserRequest {
     
     public UserRequest() {}
     
-    public UserRequest(String message, String city, Timestamp timestamp, Status status) {
+    public UserRequest(String message, String city, Timestamp timestamp, Disaster disaster, Status status) {
         this.message = message;
         this.city = city;
         this.timestamp = timestamp;
+        this.disaster = disaster;
         this.status = status;
     }
     
     public Integer getId() {
         return id;
     }
+    
     public void setId(Integer id) {
         this.id = id;
     }
+    
     public String getMessage() {
         return message;
     }
+    
     public void setMessage(String message) {
         this.message = message;
     }
+    
     public String getCity() {
         return city;
     }
+    
     public void setCity(String city) {
         this.city = city;
     }
+    
     public Timestamp getTimestamp() {
         return timestamp;
     }
+    
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
+    
     public Disaster getDisaster() {
-    		return disaster;
+        return disaster;
     }
+    
     public void setDisaster(Disaster disaster) {
-    		this.disaster = disaster;
+        this.disaster = disaster;
     }
+    
     public Status getStatus() {
         return status;
     }
+    
     public void setStatus(Status status) {
         this.status = status;
     }
+    
 }
